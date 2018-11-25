@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -24,12 +25,11 @@ public class WebController implements WebMvcConfigurer {
     }
 
     @PostMapping("/")
-    public String checkPersonInfo(@Valid PersonForm personForm, BindingResult bindingResult) {
+    public String checkPersonInfo(@Validated PersonForm personForm, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return "form";
         }
-
         return "redirect:/results";
     }
 }
