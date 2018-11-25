@@ -1,0 +1,45 @@
+
+= spring参数校验
+
+== 一、用法
+=== 1.普通校验
+=== 2.get方法校验
+参照ValidParamsController
+
+=== 3.对象级联校验
+没有实例
+
+    @Data
+    public class Demo2 {
+        @Size(min = 3,max = 5,message = "list的Size在[3,5]")
+        private List<String> list;
+        @NotNull
+        @Valid
+        private Demo3 demo3;
+    }
+    @Data
+    public class Demo3 {
+        @Length(min = 5, max = 17, message = "length长度在 [5,17]之间")
+        private String extField;
+    }
+
+=== 4.分组校验
+参照 UserGroupValidForm
+=== 5.组序列
+参照UserGroupValidForm
+
+=== 6.自定义
+参照@CheckCase(value = CaseMode.LOWER,message = "不是小写字母")
+
+
+== 二、hibernate 校验器
+
+    @Bean
+    public Validator validator(){
+        ValidatorFactory validatorFactory = Validation.byProvider( HibernateValidator.class )
+                .configure()
+                .addProperty( "hibernate.validator.fail_fast", "true" )
+                .buildValidatorFactory();
+        Validator validator = validatorFactory.getValidator();
+        return validator;
+    }
