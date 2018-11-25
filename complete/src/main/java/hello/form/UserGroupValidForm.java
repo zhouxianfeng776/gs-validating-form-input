@@ -20,8 +20,9 @@ import javax.validation.groups.Default;
  */
 @Data
 public class UserGroupValidForm {
-    @Null(groups = {SaveGroup.class}, message = "不需要传入用户ID")
+
     @NotNull(groups = {UpdateGroup.class}, message = "用户ID不能为空")
+    @Null(groups = {SaveGroup.class}, message = "不需要传入用户ID")
     private Integer id;
 
     @NotBlank(message = "用户名不能为空")

@@ -2,6 +2,7 @@ package hello.controller;
 
 import hello.form.UserForm;
 import hello.form.UserGroupValidForm;
+import hello.valid.GroupOrder;
 import hello.valid.SaveGroup;
 import hello.valid.UpdateGroup;
 import org.springframework.validation.annotation.Validated;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 import javax.validation.groups.Default;
+import java.security.acl.Group;
 
 /**
  * Copyright (C), 2015-2018, XXX有限公司
@@ -55,6 +57,17 @@ public class ValidParamsController {
      */
     @PostMapping("/getGroupValid1")
     public void getGroupValid1(@Validated({UpdateGroup.class}) @RequestBody  UserGroupValidForm from) {
+
+    }
+
+    /**
+     * UpdateGroup 里面的组对于冲突的，谁在前先校验谁
+     * 可以更改@GroupSequence({UpdateGroup.class,SaveGroup.class,  Default.class})
+     * 里面的组的顺序，
+     * @param from
+     */
+    @PostMapping("/getGroupValid2")
+    public void getGroupValid2(@Validated({GroupOrder.class})  @RequestBody UserGroupValidForm from  ){
 
     }
 
